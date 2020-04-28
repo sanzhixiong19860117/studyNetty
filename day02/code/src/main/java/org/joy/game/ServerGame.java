@@ -40,7 +40,6 @@ public class ServerGame {
                         new GameMsgDecoder(),//自定义消息解码器
                         new GameMsgEncoder(),//游戏消息编码器
                         new GameMsgHandler() // 自定义的消息处理器
-
                 );
             }
         });
