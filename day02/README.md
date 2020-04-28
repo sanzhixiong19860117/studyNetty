@@ -4,7 +4,7 @@
 
 消息的设计
 
-![](E:\studyNetty\studyNetty\day02\image\msg.png)
+![](https://github.com/sanzhixiong19860117/studyNetty/blob/master/day02/image/msg.png)
 
 1.首先前两个字节是消息的长度
 
@@ -18,7 +18,7 @@
 
 粘包的的示意图
 
-![](E:\studyNetty\studyNetty\day02\image\msg1.png)
+![](https://github.com/sanzhixiong19860117/studyNetty/blob/master/day02/image/msg.png/msg1.png)
 
 
 
