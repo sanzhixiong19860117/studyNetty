@@ -10,9 +10,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
-
-import java.util.logging.Logger;
-
 import org.slf4j.LoggerFactory;
 
 /**
@@ -40,7 +37,10 @@ public class ServerGame {
                         new HttpServerCodec(), // Http 服务器编解码器
                         new HttpObjectAggregator(65535), // 内容长度限制
                         new WebSocketServerProtocolHandler("/websocket"), // WebSocket 协议处理器, 在这里处理握手、ping、pong 等消息
+                        new GameMsgDecoder(),//自定义消息解码器
+                        new GameMsgEncoder(),//游戏消息编码器
                         new GameMsgHandler() // 自定义的消息处理器
+
                 );
             }
         });
