@@ -352,3 +352,102 @@ public final class WhoElseIsHereCmdHandler implements ICmdHandler<GameMsgProtoco
 ```
 
 继承后重写对应的方法，这样我们的代码更加的清爽。
+
+## 5.使用工厂模式对指令数据进行改造
+
+```java
+package org.cmdHandler;
+
+import com.google.protobuf.GeneratedMessageV3;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author joy
+ * @version 1.0
+ * @date 2020/5/8 16:33
+ * 指令静态工厂类
+ */
+public final class CmdHandlerFactory {
+    /**
+     * 处理器字典
+     */
+    static private Map<Class<?>, ICmdHandler<? extends GeneratedMessageV3>> _handlerMap = new HashMap<>();
+
+    private CmdHandlerFactory() {
+    }
+
+    /**
+     * 创建指令处理工厂
+     *
+     * @param msgClazz
+     * @return
+     */
+    static public ICmdHandler<? extends GeneratedMessageV3> crate(Class<?> msgClazz) {
+        if (null == msgClazz) {
+            return null;
+        }
+        return _handlerMap.get(msgClazz);
+    }
+}
+```
+
+对GameMsgHandler类的channelRead0方法进行修改
+
+修改前：
+
+```java
+@Override
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+//        System.out.println("服务器收到客户端消息 msg=" + o);
+        if (null == ctx || null == msg) {
+            LOGGER.info("channelRead0数据或则消息体出错");
+            return;
+        }
+        try {
+            if (msg instanceof GameMsgProtocol.UserEntryCmd) {
+                new UserEntryCmdHandler().handle(ctx, (GameMsgProtocol.UserEntryCmd) msg);
+            } else if (msg instanceof GameMsgProtocol.WhoElseIsHereCmd) {
+                new WhoElseIsHereCmdHandler().handle(ctx,(GameMsgProtocol.WhoElseIsHereCmd)msg);
+            }
+        } catch (Exception ex) {
+            // 记录错误日志
+            LOGGER.error(ex.getMessage(), ex);
+        }
+    }
+```
+
+修改后：
+
+```java
+@Override
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+        System.out.println("服务器收到客户端消息 msg=" + msg.getClass().getName());
+        ICmdHandler<? extends GeneratedMessageV3> cmdHandler = CmdHandlerFactory.crate(msg.getClass());
+        if (null != cmdHandler) {
+            cmdHandler.handle(ctx, cast(msg));
+        }
+    }
+```
+
+增加消息转换消息
+
+```java
+/**
+     * 转换消息对象
+     * @param msg
+     * @param <TCmd>
+     * @return
+     */
+    static private <TCmd extends GeneratedMessageV3> TCmd cast(Object msg) {
+        if (null == msg) {
+            return null;
+        } else {
+            return (TCmd)msg;
+        }
+    }
+```
+
+
+

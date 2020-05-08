@@ -1,10 +1,13 @@
 package org.joy.game;
 
+import com.google.protobuf.GeneratedMessageV3;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import org.cmdHandler.CmdHandlerFactory;
+import org.cmdHandler.ICmdHandler;
 import org.cmdHandler.UserEntryCmdHandler;
 import org.cmdHandler.WhoElseIsHereCmdHandler;
 import org.model.UserManager;
@@ -68,20 +71,24 @@ public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-//        System.out.println("服务器收到客户端消息 msg=" + o);
-        if (null == ctx || null == msg) {
-            LOGGER.info("channelRead0数据或则消息体出错");
-            return;
+        System.out.println("服务器收到客户端消息 msg=" + msg.getClass().getName());
+        ICmdHandler<? extends GeneratedMessageV3> cmdHandler = CmdHandlerFactory.crate(msg.getClass());
+        if (null != cmdHandler) {
+            cmdHandler.handle(ctx, cast(msg));
         }
-        try {
-            if (msg instanceof GameMsgProtocol.UserEntryCmd) {
-                new UserEntryCmdHandler().handle(ctx, (GameMsgProtocol.UserEntryCmd) msg);
-            } else if (msg instanceof GameMsgProtocol.WhoElseIsHereCmd) {
-                new WhoElseIsHereCmdHandler().handle(ctx,(GameMsgProtocol.WhoElseIsHereCmd)msg);
-            }
-        } catch (Exception ex) {
-            // 记录错误日志
-            LOGGER.error(ex.getMessage(), ex);
+    }
+
+    /**
+     * 转换消息对象
+     * @param msg
+     * @param <TCmd>
+     * @return
+     */
+    static private <TCmd extends GeneratedMessageV3> TCmd cast(Object msg) {
+        if (null == msg) {
+            return null;
+        } else {
+            return (TCmd)msg;
         }
     }
 }
