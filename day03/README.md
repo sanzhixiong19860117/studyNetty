@@ -622,7 +622,7 @@ public final class GameMsgRecognizer {
 
 修改以后的解码器类
 
-```
+```java
 package org.joy.game;
 
 import com.google.protobuf.GeneratedMessageV3;
@@ -698,7 +698,6 @@ public class GameMsgEncoder extends ChannelOutboundHandlerAdapter {
             LOGGER.error(ex.getMessage(), ex);
         }
     }
-
 }
 ```
 
