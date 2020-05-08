@@ -152,3 +152,203 @@ for (User currUser : UserManager.listUser()) {
                 }
 ```
 
+工具提取方法：ide右键点击refactor->extract->method，然后会弹出一个对话框要你填写函数名字，这样就会把你的代码单独出来。
+
+## 3.增加两个类，对消息进行处理
+
+增加谁在场的WhoElseIsHereCmdHandler消息处理类
+
+```java
+package org.cmdHandler;
+
+import io.netty.channel.ChannelHandlerContext;
+import org.joy.game.User;
+import org.model.UserManager;
+import org.tinygame.herostory.msg.GameMsgProtocol;
+/**
+ * @author joy
+ * @version 1.0
+ * @date 2020/5/8 16:00
+ * 谁在场的指定处理
+ */
+public class WhoElseIsHereCmdHandler {
+    //把刚才的channelRead0的消息封装到这个里面
+    //这样收到消息指用传入数据其他的就不用操作了
+    public void handle(ChannelHandlerContext ctx, GameMsgProtocol.WhoElseIsHereCmd msg) {
+        GameMsgProtocol.WhoElseIsHereResult.Builder resultBuilder = GameMsgProtocol.WhoElseIsHereResult.newBuilder();
+
+        for (User currUser : UserManager.listUser()) {
+            if (null == currUser) {
+                continue;
+            }          GameMsgProtocol.WhoElseIsHereResult.UserInfo.Builder userInfoBuilder = GameMsgProtocol.WhoElseIsHereResult.UserInfo.newBuilder();
+            userInfoBuilder.setUserId(currUser.userId);
+            userInfoBuilder.setHeroAvatar(currUser.heroAvatar);
+            resultBuilder.addUserInfo(userInfoBuilder);
+        }
+
+        GameMsgProtocol.WhoElseIsHereResult newResult = resultBuilder.build();
+        ctx.writeAndFlush(newResult);
+    }
+}
+```
+
+增加用户进入场地的消息处理类 UserEntryCmdHandler
+
+```java
+package org.cmdHandler;
+
+import io.netty.channel.ChannelHandlerContext;
+import org.joy.game.Broadcaster;
+import org.joy.game.User;
+import org.model.UserManager;
+import org.tinygame.herostory.msg.GameMsgProtocol;
+
+/**
+ * @author joy
+ * @version 1.0
+ * @date 2020/5/8 13:00
+ * 进入场景的消息处理类
+ */
+public final class UserEntryCmdHandler {
+    /**
+     * 进行入场的消息解析
+     *
+     * @param cxt
+     * @param msg
+     */
+    public void handle(ChannelHandlerContext cxt, GameMsgProtocol.UserEntryCmd msg) {
+        //
+        // 用户入场消息
+        //
+        GameMsgProtocol.UserEntryCmd cmd = msg;
+        int userId = cmd.getUserId();
+        String heroAvatar = cmd.getHeroAvatar();
+
+        User newUser = new User();
+        newUser.userId = userId;
+        newUser.heroAvatar = heroAvatar;
+        UserManager.addUser(newUser);
+
+        GameMsgProtocol.UserEntryResult.Builder resultBuilder = GameMsgProtocol.UserEntryResult.newBuilder();
+        resultBuilder.setUserId(userId);
+        resultBuilder.setHeroAvatar(heroAvatar);
+
+        // 构建结果并广播
+        GameMsgProtocol.UserEntryResult newResult = resultBuilder.build();
+        Broadcaster.sendAllMsg(newResult);
+    }
+}
+```
+
+## 4.使用多态进行封装
+
+使用接口进行封装
+
+```java
+package org.cmdHandler;
+
+import com.google.protobuf.GeneratedMessageV3;
+import io.netty.channel.ChannelHandlerContext;
+
+/**
+ * @author joy
+ * @version 1.0
+ * @date 2020/5/8 16:11
+ * 继承这个接口进行多态操作
+ */
+public interface ICmdHandler<TCmd extends GeneratedMessageV3> {
+    public void handle(ChannelHandlerContext ctx, TCmd cmd);
+}
+```
+
+对TCmd继承和说法网站上有想写的介绍https://www.jianshu.com/p/597a4ac3c6fa
+
+修改以后的代码就是
+
+UserEntryCmdHandler类继承与ICmdHandler
+
+```java
+package org.cmdHandler;
+
+import io.netty.channel.ChannelHandlerContext;
+import org.joy.game.Broadcaster;
+import org.joy.game.User;
+import org.model.UserManager;
+import org.tinygame.herostory.msg.GameMsgProtocol;
+
+/**
+ * @author joy
+ * @version 1.0
+ * @date 2020/5/8 13:00
+ * 进入场景的消息处理类
+ */
+public final class UserEntryCmdHandler implements ICmdHandler<GameMsgProtocol.UserEntryCmd>{
+    /**
+     * 进行入场的消息解析
+     *
+     * @param cxt
+     * @param msg
+     */
+    @Override
+    public void handle(ChannelHandlerContext cxt, GameMsgProtocol.UserEntryCmd msg) {
+        GameMsgProtocol.UserEntryCmd cmd = msg;
+        //解析对应的数据
+        int userId = cmd.getUserId();
+        String heroAvatar = cmd.getHeroAvatar();
+        //解析对应的数据放入到对应里面
+        User newUser = new User();
+        newUser.userId = userId;
+        newUser.heroAvatar = heroAvatar;
+        UserManager.addUser(newUser);
+        //构建发送数据然后广播到前端进行显示
+        GameMsgProtocol.UserEntryResult.Builder resultBuilder = GameMsgProtocol.UserEntryResult.newBuilder();
+        resultBuilder.setUserId(userId);
+        resultBuilder.setHeroAvatar(heroAvatar);
+        // 构建结果并广播
+        GameMsgProtocol.UserEntryResult newResult = resultBuilder.build();
+        Broadcaster.sendAllMsg(newResult);
+    }
+}
+```
+
+WhoElseIsHereCmdHandler也相应的继承对应的方法
+
+```java
+package org.cmdHandler;
+
+import io.netty.channel.ChannelHandlerContext;
+import org.joy.game.User;
+import org.model.UserManager;
+import org.tinygame.herostory.msg.GameMsgProtocol;
+
+/**
+ * @author joy
+ * @version 1.0
+ * @date 2020/5/8 16:00
+ * 谁在场的指定处理
+ */
+public final class WhoElseIsHereCmdHandler implements ICmdHandler<GameMsgProtocol.WhoElseIsHereCmd> {
+
+    @Override
+    public void handle(ChannelHandlerContext ctx, GameMsgProtocol.WhoElseIsHereCmd msg) {
+        GameMsgProtocol.WhoElseIsHereResult.Builder resultBuilder = GameMsgProtocol.WhoElseIsHereResult.newBuilder();
+
+        for (User currUser : UserManager.listUser()) {
+            if (null == currUser) {
+                continue;
+            }
+
+            GameMsgProtocol.WhoElseIsHereResult.UserInfo.Builder userInfoBuilder = GameMsgProtocol.WhoElseIsHereResult.UserInfo.newBuilder();
+            userInfoBuilder.setUserId(currUser.userId);
+            userInfoBuilder.setHeroAvatar(currUser.heroAvatar);
+            resultBuilder.addUserInfo(userInfoBuilder);
+        }
+
+        GameMsgProtocol.WhoElseIsHereResult newResult = resultBuilder.build();
+        ctx.writeAndFlush(newResult);
+    }
+}
+
+```
+
+继承后重写对应的方法，这样我们的代码更加的清爽。

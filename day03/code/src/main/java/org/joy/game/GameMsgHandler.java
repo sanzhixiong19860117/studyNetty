@@ -5,6 +5,8 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import org.cmdHandler.UserEntryCmdHandler;
+import org.cmdHandler.WhoElseIsHereCmdHandler;
 import org.model.UserManager;
 import org.slf4j.LoggerFactory;
 import org.tinygame.herostory.msg.GameMsgProtocol;
@@ -71,47 +73,11 @@ public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
             LOGGER.info("channelRead0数据或则消息体出错");
             return;
         }
-
         try {
             if (msg instanceof GameMsgProtocol.UserEntryCmd) {
-                //
-                // 用户入场消息
-                //
-                GameMsgProtocol.UserEntryCmd cmd = (GameMsgProtocol.UserEntryCmd) msg;
-                int userId = cmd.getUserId();
-                String heroAvatar = cmd.getHeroAvatar();
-
-                User newUser = new User();
-                newUser.userId = userId;
-                newUser.heroAvatar = heroAvatar;
-                UserManager.addUser(newUser);
-
-                GameMsgProtocol.UserEntryResult.Builder resultBuilder = GameMsgProtocol.UserEntryResult.newBuilder();
-                resultBuilder.setUserId(userId);
-                resultBuilder.setHeroAvatar(heroAvatar);
-
-                // 构建结果并广播
-                GameMsgProtocol.UserEntryResult newResult = resultBuilder.build();
-                Broadcaster.sendAllMsg(newResult);
+                new UserEntryCmdHandler().handle(ctx, (GameMsgProtocol.UserEntryCmd) msg);
             } else if (msg instanceof GameMsgProtocol.WhoElseIsHereCmd) {
-                //
-                // 还有谁在场
-                //
-                GameMsgProtocol.WhoElseIsHereResult.Builder resultBuilder = GameMsgProtocol.WhoElseIsHereResult.newBuilder();
-
-                for (User currUser : UserManager.listUser()) {
-                    if (null == currUser) {
-                        continue;
-                    }
-
-                    GameMsgProtocol.WhoElseIsHereResult.UserInfo.Builder userInfoBuilder = GameMsgProtocol.WhoElseIsHereResult.UserInfo.newBuilder();
-                    userInfoBuilder.setUserId(currUser.userId);
-                    userInfoBuilder.setHeroAvatar(currUser.heroAvatar);
-                    resultBuilder.addUserInfo(userInfoBuilder);
-                }
-
-                GameMsgProtocol.WhoElseIsHereResult newResult = resultBuilder.build();
-                ctx.writeAndFlush(newResult);
+                new WhoElseIsHereCmdHandler().handle(ctx,(GameMsgProtocol.WhoElseIsHereCmd)msg);
             }
         } catch (Exception ex) {
             // 记录错误日志
