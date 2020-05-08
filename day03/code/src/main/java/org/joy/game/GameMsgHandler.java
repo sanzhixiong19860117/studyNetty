@@ -5,6 +5,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import org.model.UserManager;
 import org.slf4j.LoggerFactory;
 import org.tinygame.herostory.msg.GameMsgProtocol;
 
@@ -19,11 +20,6 @@ import java.util.Map;
 public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
     //日志对象
     static private final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(GameMsgHandler.class);
-
-    /**
-     * 用户字典
-     */
-    static private final Map<Integer, User> _userMap = new HashMap<>();
 
     //连接操作
     @Override
@@ -88,7 +84,7 @@ public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
                 User newUser = new User();
                 newUser.userId = userId;
                 newUser.heroAvatar = heroAvatar;
-                _userMap.putIfAbsent(userId, newUser);
+                UserManager.addUser(newUser);
 
                 GameMsgProtocol.UserEntryResult.Builder resultBuilder = GameMsgProtocol.UserEntryResult.newBuilder();
                 resultBuilder.setUserId(userId);
@@ -103,7 +99,7 @@ public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
                 //
                 GameMsgProtocol.WhoElseIsHereResult.Builder resultBuilder = GameMsgProtocol.WhoElseIsHereResult.newBuilder();
 
-                for (User currUser : _userMap.values()) {
+                for (User currUser : UserManager.listUser()) {
                     if (null == currUser) {
                         continue;
                     }

@@ -75,3 +75,80 @@ public final class Broadcaster {
 ```
 
 目的：把广播全部分离出去，这样我们需要在任何的地方进行添加还有删除广发都可以使用这个类进行操作。设计模式的单一性的一个体现。
+
+## 2.把用户的map进行抽离
+
+创建UserManager类
+
+```java
+package org.model;
+
+import org.joy.game.User;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author joy
+ * @version 1.0
+ * @date 2020/5/8 12:28
+ */
+public final class UserManager {
+    static private final Map<Integer, User> _userMap = new HashMap<>();
+
+    private UserManager() {
+    }
+
+    /**
+     * 增加用户操作
+     *
+     * @param newUser
+     */
+    public static void addUser(User newUser) {
+        if (null == newUser) {
+            return;
+        }
+        _userMap.put(newUser.userId, newUser);
+    }
+
+    /**
+     * 删除指定用户
+     *
+     * @param userId
+     */
+    public static void removeUser(int userId) {
+        if (userId < 0) {
+            return;
+        }
+        _userMap.remove(userId);
+    }
+
+    public static Collection<User> listUser(){
+        return _userMap.values();
+    }
+}
+```
+
+修改对应的地方
+
+```java
+User newUser = new User();
+                newUser.userId = userId;
+                newUser.heroAvatar = heroAvatar;
+                UserManager.addUser(newUser);
+```
+
+```java
+for (User currUser : UserManager.listUser()) {
+                    if (null == currUser) {
+                        continue;
+                    }
+
+                    GameMsgProtocol.WhoElseIsHereResult.UserInfo.Builder userInfoBuilder = GameMsgProtocol.WhoElseIsHereResult.UserInfo.newBuilder();
+                    userInfoBuilder.setUserId(currUser.userId);
+                    userInfoBuilder.setHeroAvatar(currUser.heroAvatar);
+                    resultBuilder.addUserInfo(userInfoBuilder);
+                }
+```
+
