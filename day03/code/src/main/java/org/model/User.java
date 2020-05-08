@@ -1,4 +1,4 @@
-package org.joy.game;
+package org.model;
 
 /**
  * @author joy

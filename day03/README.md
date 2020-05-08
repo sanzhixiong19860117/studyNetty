@@ -449,5 +449,256 @@ public final class CmdHandlerFactory {
     }
 ```
 
+## 6.增加编码管理类
 
+```java
+package org.joy.game;
+import com.google.protobuf.GeneratedMessageV3;
+import com.google.protobuf.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.tinygame.herostory.msg.GameMsgProtocol;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author joy
+ * @version 1.0
+ * @date 2020/5/8 18:10
+ * 消息识别器
+ */
+public final class GameMsgRecognizer {
+    /**
+     * 日志对象
+     */
+    static private final Logger LOGGER = LoggerFactory.getLogger(GameMsgRecognizer.class);
+
+    /**
+     * 消息代码和消息字典
+     */
+    static private final Map<Integer, GeneratedMessageV3> _msgCodeAndMsgBodyMap = new HashMap<>();
+
+
+    /**
+     * 消息类型和消息编号字典
+     */
+    static private final Map<Class<?>, Integer> _msgClazzAndMsgcodeMap = new HashMap<>();
+
+    /**
+     * 构造函数变成私有
+     */
+    private GameMsgRecognizer() {
+
+    }
+
+    /**
+     * 初始化数据
+     */
+    static public void init() {
+        Class<?>[] innerClazzArray = GameMsgProtocol.class.getDeclaredClasses();
+        for (Class<?> innerClazz : innerClazzArray) {
+            if (!GeneratedMessageV3.class.isAssignableFrom(innerClazz)) {
+                continue;
+            }
+
+            String clazzName = innerClazz.getSimpleName();
+            clazzName = clazzName.toLowerCase();
+
+            for (GameMsgProtocol.MsgCode msgCode : GameMsgProtocol.MsgCode.values()) {
+                String strMsgCode = msgCode.name();
+                strMsgCode = strMsgCode.replace("_", "");//替换code
+                strMsgCode = strMsgCode.toLowerCase();//全部变小写
+                if (!strMsgCode.startsWith(clazzName)) {
+                    continue;
+                }
+
+                try {
+                    Object returnObj = innerClazz.getDeclaredMethod("getDefaultInstance").invoke(innerClazz);
+                    //放入到集合中
+                    _msgCodeAndMsgBodyMap.put(
+                            msgCode.getNumber(),
+                            (GeneratedMessageV3) returnObj
+                    );
+
+                    _msgClazzAndMsgcodeMap.put(
+                            innerClazz,
+                            msgCode.getNumber()
+                    );
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 根据消息编号获取构建者
+     *
+     * @param msgCode
+     * @return
+     */
+    static public Message.Builder getBuilderByMsgCode(int msgCode) {
+        if (msgCode < 0) {
+            return null;
+        }
+
+        GeneratedMessageV3 msg = _msgCodeAndMsgBodyMap.get(msgCode);
+        if (null == msg) {
+            return null;
+        }
+
+        return msg.newBuilderForType();
+    }
+
+    /**
+     * 根据消息获得消息编号
+     *
+     * @param msgClazz
+     * @return
+     */
+    static public int getMsgCodeByMsgClazz(Class<?> msgClazz) {
+        if (null == msgClazz) {
+            return -1;
+        }
+
+        Integer msgCode = _msgClazzAndMsgcodeMap.get(msgClazz);
+        if (null != msgCode) {
+            return msgCode.intValue();
+        } else {
+            return -1;
+        }
+    }
+
+}
+```
+
+消息解码器的修改后：
+
+```java
+@Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        if (!(msg instanceof BinaryWebSocketFrame)) {
+            return;
+        }
+
+        try {
+            BinaryWebSocketFrame inputFrame = (BinaryWebSocketFrame) msg;
+            ByteBuf byteBuf = inputFrame.content();
+
+            byteBuf.readShort(); // 读取消息的长度
+            int msgCode = byteBuf.readShort(); // 读取消息编号
+
+            //核心部分=============================
+            //获取消息构建者
+            Message.Builder msgBuilder = GameMsgRecognizer.getBuilderByMsgCode(msgCode);
+            if (null == msgBuilder) {
+                LOGGER.error("无法识别，msgcode={}", msgCode);
+                return;
+            }
+
+            // 拿到消息体
+            byte[] msgBody = new byte[byteBuf.readableBytes()];
+            byteBuf.readBytes(msgBody);
+
+            msgBuilder.clear();//清除数据
+            msgBuilder.mergeFrom(msgBody);
+            Message newMsg = msgBuilder.build();
+			//核心结束============================
+            if (null != newMsg) {
+                ctx.fireChannelRead(newMsg);
+            }
+        } catch (Exception ex) {
+            // 记录错误日志
+            LOGGER.error(ex.getMessage(), ex);
+        }
+    }
+```
+
+修改以后的解码器类
+
+```
+package org.joy.game;
+
+import com.google.protobuf.GeneratedMessageV3;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelOutboundHandlerAdapter;
+import io.netty.channel.ChannelPromise;
+import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.tinygame.herostory.msg.GameMsgProtocol;
+
+/**
+ * @author joy
+ * @version 1.0
+ * @date 2020/4/28 22:26
+ * 解码器
+ */
+public class GameMsgEncoder extends ChannelOutboundHandlerAdapter {
+    /**
+     * 日志对象
+     */
+    static private final Logger LOGGER = LoggerFactory.getLogger(GameMsgEncoder.class);
+
+    @Override
+    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
+        if (null == ctx ||
+                null == msg) {
+            return;
+        }
+
+        try {
+            if (!(msg instanceof GeneratedMessageV3)) {
+                super.write(ctx, msg, promise);
+                return;
+            }
+
+            // 消息编码
+            int msgCode = GameMsgRecognizer.getMsgCodeByMsgClazz(msg.getClass());
+
+            if (msgCode <= -1) {
+                LOGGER.error("无法识别msgClass={}",msg.getClass().getName());
+                return;
+            }
+
+            //删掉没有的部分
+//            if (msg instanceof GameMsgProtocol.UserEntryResult) {
+//                msgCode = GameMsgProtocol.MsgCode.USER_ENTRY_RESULT_VALUE;
+//            } else if (msg instanceof GameMsgProtocol.WhoElseIsHereResult) {
+//                msgCode = GameMsgProtocol.MsgCode.WHO_ELSE_IS_HERE_RESULT_VALUE;
+//            } else {
+//                LOGGER.error(
+//                        "无法识别的消息类型, msgClazz = {}",
+//                        msg.getClass().getSimpleName()
+//                );
+//                super.write(ctx, msg, promise);
+//                return;
+//            }
+
+            //消息体
+            byte[] msgBody = ((GeneratedMessageV3)msg).toByteArray();
+
+            ByteBuf byteBuf = ctx.alloc().buffer();
+            byteBuf.writeShort((short) msgBody.length); // 消息的长度
+            byteBuf.writeShort((short) msgCode); // 消息编号
+            byteBuf.writeBytes(msgBody); // 消息体
+
+            // 写出 ByteBuf
+            BinaryWebSocketFrame outputFrame = new BinaryWebSocketFrame(byteBuf);
+            super.write(ctx, outputFrame, promise);
+        } catch (Exception ex) {
+            // 记录错误日志
+            LOGGER.error(ex.getMessage(), ex);
+        }
+    }
+
+}
+```
 

@@ -1,6 +1,7 @@
 package org.joy.game;
 
 import com.google.protobuf.GeneratedMessageV3;
+import com.google.protobuf.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -16,7 +17,6 @@ import org.tinygame.herostory.msg.GameMsgProtocol;
  * @date 2020/4/28 22:23
  */
 public class GameMsgDecoder extends ChannelInboundHandlerAdapter {
-
     /**
      * 日志对象
      */
@@ -24,11 +24,6 @@ public class GameMsgDecoder extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (null == ctx ||
-                null == msg) {
-            return;
-        }
-
         if (!(msg instanceof BinaryWebSocketFrame)) {
             return;
         }
@@ -40,27 +35,23 @@ public class GameMsgDecoder extends ChannelInboundHandlerAdapter {
             byteBuf.readShort(); // 读取消息的长度
             int msgCode = byteBuf.readShort(); // 读取消息编号
 
+            //获取消息构建者
+            Message.Builder msgBuilder = GameMsgRecognizer.getBuilderByMsgCode(msgCode);
+            if (null == msgBuilder) {
+                LOGGER.error("无法识别，msgcode={}", msgCode);
+                return;
+            }
+
             // 拿到消息体
             byte[] msgBody = new byte[byteBuf.readableBytes()];
             byteBuf.readBytes(msgBody);
 
-            GeneratedMessageV3 cmd = null;
+            msgBuilder.clear();//清除数据
+            msgBuilder.mergeFrom(msgBody);
+            Message newMsg = msgBuilder.build();
 
-            switch (msgCode) {
-                case GameMsgProtocol.MsgCode.USER_ENTRY_CMD_VALUE:
-                    cmd = GameMsgProtocol.UserEntryCmd.parseFrom(msgBody);
-                    break;
-
-                case GameMsgProtocol.MsgCode.WHO_ELSE_IS_HERE_CMD_VALUE:
-                    cmd = GameMsgProtocol.WhoElseIsHereCmd.parseFrom(msgBody);
-                    break;
-
-                default:
-                    break;
-            }
-
-            if (null != cmd) {
-                ctx.fireChannelRead(cmd);
+            if (null != newMsg) {
+                ctx.fireChannelRead(newMsg);
             }
         } catch (Exception ex) {
             // 记录错误日志

@@ -1,7 +1,5 @@
 package org.model;
 
-import org.joy.game.User;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;

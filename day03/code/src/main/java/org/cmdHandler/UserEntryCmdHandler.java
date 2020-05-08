@@ -2,7 +2,7 @@ package org.cmdHandler;
 
 import io.netty.channel.ChannelHandlerContext;
 import org.joy.game.Broadcaster;
-import org.joy.game.User;
+import org.model.User;
 import org.model.UserManager;
 import org.tinygame.herostory.msg.GameMsgProtocol;
 

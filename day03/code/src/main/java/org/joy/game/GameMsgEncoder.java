@@ -14,6 +14,7 @@ import org.tinygame.herostory.msg.GameMsgProtocol;
  * @author joy
  * @version 1.0
  * @date 2020/4/28 22:26
+ * 解码器
  */
 public class GameMsgEncoder extends ChannelOutboundHandlerAdapter {
     /**
@@ -35,23 +36,29 @@ public class GameMsgEncoder extends ChannelOutboundHandlerAdapter {
             }
 
             // 消息编码
-            int msgCode = -1;
+            int msgCode = GameMsgRecognizer.getMsgCodeByMsgClazz(msg.getClass());
 
-            if (msg instanceof GameMsgProtocol.UserEntryResult) {
-                msgCode = GameMsgProtocol.MsgCode.USER_ENTRY_RESULT_VALUE;
-            } else if (msg instanceof GameMsgProtocol.WhoElseIsHereResult) {
-                msgCode = GameMsgProtocol.MsgCode.WHO_ELSE_IS_HERE_RESULT_VALUE;
-            } else {
-                LOGGER.error(
-                        "无法识别的消息类型, msgClazz = {}",
-                        msg.getClass().getSimpleName()
-                );
-                super.write(ctx, msg, promise);
+            if (msgCode <= -1) {
+                LOGGER.error("无法识别msgClass={}",msg.getClass().getName());
                 return;
             }
 
-            // 消息体
-            byte[] msgBody = ((GeneratedMessageV3) msg).toByteArray();
+            //删掉没有的部分
+//            if (msg instanceof GameMsgProtocol.UserEntryResult) {
+//                msgCode = GameMsgProtocol.MsgCode.USER_ENTRY_RESULT_VALUE;
+//            } else if (msg instanceof GameMsgProtocol.WhoElseIsHereResult) {
+//                msgCode = GameMsgProtocol.MsgCode.WHO_ELSE_IS_HERE_RESULT_VALUE;
+//            } else {
+//                LOGGER.error(
+//                        "无法识别的消息类型, msgClazz = {}",
+//                        msg.getClass().getSimpleName()
+//                );
+//                super.write(ctx, msg, promise);
+//                return;
+//            }
+
+            //消息体
+            byte[] msgBody = ((GeneratedMessageV3)msg).toByteArray();
 
             ByteBuf byteBuf = ctx.alloc().buffer();
             byteBuf.writeShort((short) msgBody.length); // 消息的长度

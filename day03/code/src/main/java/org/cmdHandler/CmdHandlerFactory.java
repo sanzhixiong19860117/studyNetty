@@ -1,6 +1,7 @@
 package org.cmdHandler;
 
 import com.google.protobuf.GeneratedMessageV3;
+import org.tinygame.herostory.msg.GameMsgProtocol;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,11 @@ public final class CmdHandlerFactory {
     static private Map<Class<?>, ICmdHandler<? extends GeneratedMessageV3>> _handlerMap = new HashMap<>();
 
     private CmdHandlerFactory() {
+    }
+
+    static public void init() {
+        _handlerMap.put(GameMsgProtocol.UserEntryCmd.class, new UserEntryCmdHandler());
+        _handlerMap.put(GameMsgProtocol.WhoElseIsHereCmd.class, new WhoElseIsHereCmdHandler());
     }
 
     /**

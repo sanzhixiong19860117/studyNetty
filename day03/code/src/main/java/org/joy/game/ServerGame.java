@@ -10,6 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
+import org.cmdHandler.CmdHandlerFactory;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -22,6 +23,10 @@ public class ServerGame {
     static private final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ServerGame.class);
 
     public static void main(String[] args) {
+
+        CmdHandlerFactory.init();
+        GameMsgRecognizer.init();
+
         //boss客户端连接，work业务
         EventLoopGroup boss = new NioEventLoopGroup();
         EventLoopGroup work = new NioEventLoopGroup();
