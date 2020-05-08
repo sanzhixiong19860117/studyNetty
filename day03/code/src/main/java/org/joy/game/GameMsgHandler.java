@@ -19,8 +19,7 @@ import java.util.Map;
 public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
     //日志对象
     static private final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(GameMsgHandler.class);
-    //这个地方增加集合操作
-    static private final ChannelGroup _channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+
     /**
      * 用户字典
      */
@@ -29,16 +28,9 @@ public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
     //连接操作
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        if (null == ctx) {
-            return;
-        }
-        try {
-            super.channelActive(ctx);
-            //添加子对象
-            _channelGroup.add(ctx.channel());
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-        }
+        super.channelActive(ctx);
+        //添加子对象
+        Broadcaster.addChannel(ctx.channel());
     }
 
     @Override
@@ -104,7 +96,7 @@ public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
 
                 // 构建结果并广播
                 GameMsgProtocol.UserEntryResult newResult = resultBuilder.build();
-                _channelGroup.writeAndFlush(newResult);
+                Broadcaster.sendAllMsg(newResult);
             } else if (msg instanceof GameMsgProtocol.WhoElseIsHereCmd) {
                 //
                 // 还有谁在场

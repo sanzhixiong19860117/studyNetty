@@ -1,10 +1,3 @@
-# 重构，设计模式实战
-
-## 1.把GameMsgHandler的ChannelGroup，和用户字典分离出去
-
-重新创建一个类Broadcaster
-
-```java
 package org.joy.game;
 
 import io.netty.channel.Channel;
@@ -13,6 +6,7 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
  * @author joy
  * @version 1.0
@@ -60,18 +54,5 @@ public final class Broadcaster {
         }
         _channelGroup.writeAndFlush(msg);
     }
+
 }
-```
-
-连接的时候的代码修改为
-
-```java
-@Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-         super.channelActive(ctx);
-         //添加子对象
-         Broadcaster.addChannel(ctx.channel());
-    }
-```
-
-目的：把广播全部分离出去，这样我们需要在任何的地方进行添加还有删除广发都可以使用这个类进行操作。设计模式的单一性的一个体现。
