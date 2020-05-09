@@ -23,55 +23,35 @@ public class GameMsgEncoder extends ChannelOutboundHandlerAdapter {
     static private final Logger LOGGER = LoggerFactory.getLogger(GameMsgEncoder.class);
 
     @Override
-    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
-        if (null == ctx ||
-                null == msg) {
+    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
+        if (null == msg ||
+                !(msg instanceof GeneratedMessageV3)) {
+            super.write(ctx, msg, promise);
             return;
         }
 
-        try {
-            if (!(msg instanceof GeneratedMessageV3)) {
-                super.write(ctx, msg, promise);
-                return;
-            }
+        // 获取消息类
+        Class<?> msgClazz = msg.getClass();
 
-            // 消息编码
-            int msgCode = GameMsgRecognizer.getMsgCodeByMsgClazz(msg.getClass());
-
-            if (msgCode <= -1) {
-                LOGGER.error("无法识别msgClass={}",msg.getClass().getName());
-                return;
-            }
-
-            //删掉没有的部分
-//            if (msg instanceof GameMsgProtocol.UserEntryResult) {
-//                msgCode = GameMsgProtocol.MsgCode.USER_ENTRY_RESULT_VALUE;
-//            } else if (msg instanceof GameMsgProtocol.WhoElseIsHereResult) {
-//                msgCode = GameMsgProtocol.MsgCode.WHO_ELSE_IS_HERE_RESULT_VALUE;
-//            } else {
-//                LOGGER.error(
-//                        "无法识别的消息类型, msgClazz = {}",
-//                        msg.getClass().getSimpleName()
-//                );
-//                super.write(ctx, msg, promise);
-//                return;
-//            }
-
-            //消息体
-            byte[] msgBody = ((GeneratedMessageV3)msg).toByteArray();
-
-            ByteBuf byteBuf = ctx.alloc().buffer();
-            byteBuf.writeShort((short) msgBody.length); // 消息的长度
-            byteBuf.writeShort((short) msgCode); // 消息编号
-            byteBuf.writeBytes(msgBody); // 消息体
-
-            // 写出 ByteBuf
-            BinaryWebSocketFrame outputFrame = new BinaryWebSocketFrame(byteBuf);
-            super.write(ctx, outputFrame, promise);
-        } catch (Exception ex) {
-            // 记录错误日志
-            LOGGER.error(ex.getMessage(), ex);
+        // 获取消息编码
+        int msgCode = GameMsgRecognizer.getMsgCodeByMsgClazz(msgClazz);
+        if (msgCode <= -1) {
+            LOGGER.error(
+                    "无法识别的消息, msgClazz = {}",
+                    msgClazz.getName()
+            );
+            return;
         }
-    }
 
+        // 获取消息体字节数组
+        byte[] msgBody = ((GeneratedMessageV3) msg).toByteArray();
+
+        ByteBuf byteBuf = ctx.alloc().buffer();
+        byteBuf.writeShort((short) 0); // 写出消息长度, 目前写出 0 只是为了占位
+        byteBuf.writeShort((short) msgCode); // 写出消息编号
+        byteBuf.writeBytes(msgBody); // 写出消息体
+
+        BinaryWebSocketFrame frame = new BinaryWebSocketFrame(byteBuf);
+        super.write(ctx, frame, promise);
+    }
 }

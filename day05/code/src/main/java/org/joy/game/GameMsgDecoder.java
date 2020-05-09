@@ -28,34 +28,32 @@ public class GameMsgDecoder extends ChannelInboundHandlerAdapter {
             return;
         }
 
-        try {
-            BinaryWebSocketFrame inputFrame = (BinaryWebSocketFrame) msg;
-            ByteBuf byteBuf = inputFrame.content();
+        // WebSocket 二进制消息会通过 HttpServerCodec 解码成 BinaryWebSocketFrame 类对象
+        BinaryWebSocketFrame frame = (BinaryWebSocketFrame) msg;
+        ByteBuf byteBuf = frame.content();
 
-            byteBuf.readShort(); // 读取消息的长度
-            int msgCode = byteBuf.readShort(); // 读取消息编号
+        byteBuf.readShort(); // 读取消息的长度
+        int msgCode = byteBuf.readShort(); // 读取消息的编号
 
-            //获取消息构建者
-            Message.Builder msgBuilder = GameMsgRecognizer.getMsgBuilderByMsgCode(msgCode);
-            if (null == msgBuilder) {
-                LOGGER.error("无法识别，msgcode={}", msgCode);
-                return;
-            }
+        // 获取消息构建者
+        Message.Builder msgBuilder = GameMsgRecognizer.getMsgBuilderByMsgCode(msgCode);
+        if (null == msgBuilder) {
+            LOGGER.error("无法识别的消息, msgCode = {}", msgCode);
+            return;
+        }
 
-            // 拿到消息体
-            byte[] msgBody = new byte[byteBuf.readableBytes()];
-            byteBuf.readBytes(msgBody);
+        // 拿到消息体
+        byte[] msgBody = new byte[byteBuf.readableBytes()];
+        byteBuf.readBytes(msgBody);
 
-            msgBuilder.clear();//清除数据
-            msgBuilder.mergeFrom(msgBody);
-            Message newMsg = msgBuilder.build();
+        msgBuilder.clear();
+        msgBuilder.mergeFrom(msgBody);
 
-            if (null != newMsg) {
-                ctx.fireChannelRead(newMsg);
-            }
-        } catch (Exception ex) {
-            // 记录错误日志
-            LOGGER.error(ex.getMessage(), ex);
+        // 构建消息
+        Message newMsg = msgBuilder.build();
+
+        if (null != newMsg) {
+            ctx.fireChannelRead(newMsg);
         }
     }
 }
