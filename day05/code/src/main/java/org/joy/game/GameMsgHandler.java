@@ -3,19 +3,12 @@ package org.joy.game;
 import com.google.protobuf.GeneratedMessageV3;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.group.ChannelGroup;
-import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.util.concurrent.GlobalEventExecutor;
+import io.netty.util.AttributeKey;
 import org.cmdHandler.CmdHandlerFactory;
 import org.cmdHandler.ICmdHandler;
-import org.cmdHandler.UserEntryCmdHandler;
-import org.cmdHandler.WhoElseIsHereCmdHandler;
 import org.model.UserManager;
 import org.slf4j.LoggerFactory;
 import org.tinygame.herostory.msg.GameMsgProtocol;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author joy
@@ -35,33 +28,27 @@ public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     @Override
-    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        super.channelRegistered(ctx);
-    }
+    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+        super.handlerRemoved(ctx);
 
-    @Override
-    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-        super.channelUnregistered(ctx);
-    }
+        // 移除客户端信道
+        Broadcaster.removeChannel(ctx.channel());
 
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        super.channelInactive(ctx);
-    }
+        // 拿到用户 Id
+        Integer userId = (Integer) ctx.channel().attr(AttributeKey.valueOf("userId")).get();
+        if (null == userId) {
+            return;
+        }
 
-    @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        super.channelReadComplete(ctx);
-    }
+        // 移除用户
+        UserManager.removeUser(userId);
 
-    @Override
-    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        super.userEventTriggered(ctx, evt);
-    }
+        // 广播用户离场的消息
+        GameMsgProtocol.UserQuitResult.Builder resultBuilder = GameMsgProtocol.UserQuitResult.newBuilder();
+        resultBuilder.setQuitUserId(userId);
 
-    @Override
-    public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
-        super.channelWritabilityChanged(ctx);
+        GameMsgProtocol.UserQuitResult newResult = resultBuilder.build();
+        Broadcaster.sendAllMsg(newResult);
     }
 
     @Override
@@ -71,15 +58,27 @@ public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("服务器收到客户端消息 msg=" + msg.getClass().getName());
-        ICmdHandler<? extends GeneratedMessageV3> cmdHandler = CmdHandlerFactory.crate(msg.getClass());
+        Class<?> msgClazz = msg.getClass();
+
+        LOGGER.info(
+                "收到客户端消息, msgClazz = {}, msg = {}",
+                msgClazz.getName(),
+                msg
+        );
+
+        ICmdHandler<? extends GeneratedMessageV3>
+                cmdHandler = CmdHandlerFactory.crate(msgClazz);
         if (null != cmdHandler) {
             cmdHandler.handle(ctx, cast(msg));
+        } else {
+            LOGGER.info("未找到对应的指令器,msgClazz={}", msgClazz.getName());
+            return;
         }
     }
 
     /**
      * 转换消息对象
+     *
      * @param msg
      * @param <TCmd>
      * @return
@@ -88,7 +87,7 @@ public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
         if (null == msg) {
             return null;
         } else {
-            return (TCmd)msg;
+            return (TCmd) msg;
         }
     }
 }

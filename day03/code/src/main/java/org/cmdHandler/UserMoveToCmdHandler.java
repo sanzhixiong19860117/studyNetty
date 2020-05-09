@@ -13,6 +13,6 @@ public class UserMoveToCmdHandler implements ICmdHandler<GameMsgProtocol.UserMov
     @Override
     public void handle(ChannelHandlerContext ctx, GameMsgProtocol.UserMoveToCmd userMoveToCmd) {
         //第一步判断数据是否为null
-        
+
     }
 }

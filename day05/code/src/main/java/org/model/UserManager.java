@@ -42,4 +42,5 @@ public final class UserManager {
     public static Collection<User> listUser(){
         return _userMap.values();
     }
+
 }

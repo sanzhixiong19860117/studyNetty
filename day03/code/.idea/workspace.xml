@@ -2,8 +2,106 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ec2e130-052c-4b0c-ab61-0039031e7c36" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/cmdHandler/UserMoveToCmdHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/code.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/log/all.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/cmdHandler/CmdHandlerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/cmdHandler/ICmdHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/cmdHandler/UserEntryCmdHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/cmdHandler/UserMoveToCmdHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/cmdHandler/WhoElseIsHereCmdHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/joy/game/Broadcaster.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/joy/game/GameMsgDecoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/joy/game/GameMsgEncoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/joy/game/GameMsgHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/joy/game/GameMsgRecognizer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/joy/game/ServerGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/model/UserManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/java/org/tinygame/herostory/msg/GameMsgProtocol.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/src/main/resources/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/cmdHandler/CmdHandlerFactory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/cmdHandler/ICmdHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/cmdHandler/UserEntryCmdHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/cmdHandler/WhoElseIsHereCmdHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/joy/game/Broadcaster.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/joy/game/GameMsgDecoder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/joy/game/GameMsgEncoder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/joy/game/GameMsgHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/joy/game/GameMsgRecognizer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/joy/game/ServerGame$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/joy/game/ServerGame.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/model/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/model/UserManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$MsgCode$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$MsgCode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkCmd$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkCmd$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkCmd.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkCmdOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkResult$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkResult$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkResultOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserDieResult$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserDieResult$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserDieResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserDieResultOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryCmd$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryCmd$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryCmd.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryCmdOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryResult$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryResult$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryResultOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToCmd$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToCmd$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToCmd.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToCmdOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToResult$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToResult$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToResultOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserQuitResult$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserQuitResult$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserQuitResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserQuitResultOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopCmd$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopCmd$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopCmd.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopCmdOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopResult$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopResult$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopResultOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserSubtractHpResult$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserSubtractHpResult$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserSubtractHpResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserSubtractHpResultOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereCmd$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereCmd$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereCmd.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereCmdOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfo$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfo$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfoOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResultOrBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../day05/code/target/classes/org/tinygame/herostory/msg/GameMsgProtocol.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -78,8 +176,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/cmdHandler/UserMoveToCmdHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+            <state relative-caret-position="495">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -241,8 +339,8 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589009307818" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589009320003" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../day05/code" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -299,12 +397,12 @@
       <workItem from="1588131645570" duration="1258000" />
       <workItem from="1588815812322" duration="2774000" />
       <workItem from="1588903204332" duration="15889000" />
-      <workItem from="1589008353223" duration="941000" />
+      <workItem from="1589008353223" duration="1302000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37086000" />
+    <option name="totallyTimeSpent" value="37447000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -316,10 +414,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1016" y="-8" width="1874" height="1096" extended-state="6" />
-    <editor active="true" />
+    <frame x="1032" y="0" width="1083" height="1092" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17309813" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2746823" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -606,8 +703,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/cmdHandler/UserMoveToCmdHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+        <state relative-caret-position="495">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

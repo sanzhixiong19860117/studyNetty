@@ -36,7 +36,7 @@ public class GameMsgDecoder extends ChannelInboundHandlerAdapter {
             int msgCode = byteBuf.readShort(); // 读取消息编号
 
             //获取消息构建者
-            Message.Builder msgBuilder = GameMsgRecognizer.getBuilderByMsgCode(msgCode);
+            Message.Builder msgBuilder = GameMsgRecognizer.getMsgBuilderByMsgCode(msgCode);
             if (null == msgBuilder) {
                 LOGGER.error("无法识别，msgcode={}", msgCode);
                 return;
