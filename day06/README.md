@@ -1,4 +1,6 @@
 ---
+
+
 typora-root-url: ./
 ---
 
@@ -146,7 +148,52 @@ public class UserAttkCmdHandler implements ICmdHandler<GameMsgProtocol.UserAttkC
 
 1.我们创建一个MainThreadProcessor的自己的单线程的类
 
-![](/111.png)
+![111](/111.png)
 
-这是一个生产消费者模式，netty作为生产者，MainThreadprocessor作为消费者进行读取。
+MainThreadprocessor是一个单例的类
 
+核心就是创建一个单线程
+
+```java
+/**
+ * 创建一个单线程
+ */
+private final ExecutorService _es = Executors.newSingleThreadExecutor(
+        (newRunnable) -> {
+            Thread newThread = new Thread(newRunnable);
+            newThread.setName("MainThreadProcessor");//设置线程名字
+            return newThread;
+        });
+```
+
+核心在如下代码
+
+```java
+public void process(ChannelHandlerContext ctx, GeneratedMessageV3 msg) {
+        if (null == ctx || null == msg) {
+            return;
+        }
+        //获取消息类
+        Class<?> msgClazz = msg.getClass();
+
+        //线程处理
+        _es.submit(() -> {
+            LOGGER.info(
+                    "收到客户端消息, msgClazz = {}, msg = {}",
+                    msgClazz.getName(),
+                    msg
+            );
+
+            ICmdHandler<? extends GeneratedMessageV3>
+                    cmdHandler = CmdHandlerFactory.crate(msgClazz);
+            if (null != cmdHandler) {
+                cmdHandler.handle(ctx, cast(msg));
+            } else {
+                LOGGER.info("未找到对应的指令器,msgClazz={}", msgClazz.getName());
+                return;
+            }
+        });
+    }
+```
+
+这样做以后程序就不会出现多线程对属性进行读取的时候的错误。
