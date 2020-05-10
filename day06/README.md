@@ -1,3 +1,7 @@
+---
+typora-root-url: ./
+---
+
 # 单线程的设计
 
 ## 一.增加攻击的类UserAttkCmdHandler继承ICmHandler类
@@ -136,7 +140,13 @@ public class UserAttkCmdHandler implements ICmdHandler<GameMsgProtocol.UserAttkC
 }
 ```
 
+## 二.出现多线程变量不同步的问题
 
+解决方案：使用单线程进行操作最简单还不容易出错
 
+1.我们创建一个MainThreadProcessor的自己的单线程的类
 
+![](/111.png)
+
+这是一个生产消费者模式，netty作为生产者，MainThreadprocessor作为消费者进行读取。
 
