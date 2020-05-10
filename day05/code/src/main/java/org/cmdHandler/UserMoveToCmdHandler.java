@@ -13,7 +13,7 @@ import org.tinygame.herostory.msg.GameMsgProtocol;
  * @date 2020/5/9 15:20
  * 移动操作
  */
-public class UserMoveToCmdHandler implements ICmdHandler<GameMsgProtocol.UserMoveToCmd> {
+public final class UserMoveToCmdHandler implements ICmdHandler<GameMsgProtocol.UserMoveToCmd> {
     static private Logger LOGGER = LoggerFactory.getLogger(UserMoveToCmdHandler.class);
 
     @Override
