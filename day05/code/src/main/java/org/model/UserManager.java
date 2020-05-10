@@ -39,8 +39,19 @@ public final class UserManager {
         _userMap.remove(userId);
     }
 
+    /**
+     * 获取对应的列表
+     * @return
+     */
     public static Collection<User> listUser(){
         return _userMap.values();
+    }
+
+    public static User getUserById(int UserId){
+        if(UserId <= 0){
+            return null;
+        }
+        return _userMap.get(UserId);
     }
 
 }

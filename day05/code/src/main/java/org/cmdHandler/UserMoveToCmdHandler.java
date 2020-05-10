@@ -3,6 +3,10 @@ package org.cmdHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.AttributeKey;
 import org.joy.game.Broadcaster;
+import org.model.MoveState;
+import org.model.User;
+import org.model.UserManager;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tinygame.herostory.msg.GameMsgProtocol;
@@ -33,15 +37,28 @@ public final class UserMoveToCmdHandler implements ICmdHandler<GameMsgProtocol.U
             return;
         }
 
+        //获取移动用户
+        User moveUser = UserManager.getUserById(userId);
+
+        MoveState mvState = moveUser.moveState;
+        //设置
+        mvState.fromPosX = cmd.getMoveFromPosX();
+        mvState.fromPosY = cmd.getMoveFromPosY();
+        mvState.toPosX = cmd.getMoveToPosX();
+        mvState.toPosY = cmd.getMoveToPosY();
+        mvState.startTime = System.currentTimeMillis();//当前时间
+
         //创建对象
         GameMsgProtocol.UserMoveToResult.Builder resultBuilder = GameMsgProtocol.UserMoveToResult.newBuilder();
         resultBuilder.setMoveUserId(userId);
-        resultBuilder.setMoveToPosX(cmd.getMoveToPosX());
-        resultBuilder.setMoveToPosY(cmd.getMoveToPosY());
+        resultBuilder.setMoveFromPosX(mvState.fromPosX);
+        resultBuilder.setMoveFromPosY(mvState.fromPosY);
+        resultBuilder.setMoveToPosX(mvState.toPosX);
+        resultBuilder.setMoveToPosY(mvState.toPosY);
+        resultBuilder.setMoveStartTime(mvState.startTime);
 
         //获取对应的数据
         GameMsgProtocol.UserMoveToResult newResult = resultBuilder.build();
-
         //发送消息
         Broadcaster.sendAllMsg(newResult);
     }
