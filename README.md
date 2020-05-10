@@ -10,7 +10,7 @@
 
 ## [第五天：重新设计移动消息](https://github.com/sanzhixiong19860117/studyNetty/tree/master/day05)
 
-## 第六天：游戏服务器中的单线程的设计
+## [第六天：游戏服务器中的单线程的设计](https://github.com/sanzhixiong19860117/studyNetty/tree/master/day06)
 
 ## 第七天：游戏多线程读取数据库
 
