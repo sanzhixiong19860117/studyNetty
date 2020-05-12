@@ -12,4 +12,10 @@ public class User {
 
     //用户形象
     public String heroAvatar;
+
+    //用户的用户名
+    public String userName;
+
+    //当前血量
+    public int currHp;
 }

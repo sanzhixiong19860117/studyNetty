@@ -5,6 +5,8 @@ import io.netty.util.AttributeKey;
 import org.joy.game.Broadcaster;
 import org.model.User;
 import org.model.UserManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tinygame.herostory.msg.GameMsgProtocol;
 
 /**
@@ -14,6 +16,9 @@ import org.tinygame.herostory.msg.GameMsgProtocol;
  * 进入场景的消息处理类
  */
 public final class UserEntryCmdHandler implements ICmdHandler<GameMsgProtocol.UserEntryCmd> {
+
+    //日志
+    static private final Logger LOGGER = LoggerFactory.getLogger(UserEntryCmdHandler.class);
     /**
      * 进行入场的消息解析
      *
@@ -27,23 +32,25 @@ public final class UserEntryCmdHandler implements ICmdHandler<GameMsgProtocol.Us
             return;
         }
 
-        // 从指令对象中获取用户 Id 和英雄形象
-        int userId = cmd.getUserId();
-        String heroAvatar = cmd.getHeroAvatar();
+        //获取用户id
+        Integer userId = (Integer) cxt.channel().attr(AttributeKey.valueOf("userId")).get();
+        if(null == userId){
+            return;
+        }
+
+        //获取已经有的用户
+        User exisUser = UserManager.getUserById(userId);
+        if(exisUser == null){
+            LOGGER.error("获取已经用户不存在 userid={}",userId);
+            return;
+        }
+
+        //获取英雄形象
+        String heroAvatar = exisUser.heroAvatar;
 
         GameMsgProtocol.UserEntryResult.Builder resultBuilder = GameMsgProtocol.UserEntryResult.newBuilder();
         resultBuilder.setUserId(userId);
         resultBuilder.setHeroAvatar(heroAvatar);
-
-        // 新建用户,
-        User newUser = new User();
-        newUser.userId = userId;
-        newUser.heroAvatar = heroAvatar;
-        // 并将用户加入管理器
-        UserManager.addUser(newUser);
-
-        // 将用户 Id 附着到 Channel
-        cxt.channel().attr(AttributeKey.valueOf("userId")).set(userId);
 
         // 构建结果并发送
         GameMsgProtocol.UserEntryResult newResult = resultBuilder.build();
