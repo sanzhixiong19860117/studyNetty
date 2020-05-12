@@ -27,17 +27,18 @@ public class MainThreadProcessor {
         newThread.setName("MainThreadProcessor");
         return newThread;
     });
+
     //私有化构造器
-    private MainThreadProcessor(){
+    private MainThreadProcessor() {
     }
 
     //获得单例对象
-    static public MainThreadProcessor getInstance(){
+    static public MainThreadProcessor getInstance() {
         return _instance;
     }
 
-    public void process(ChannelHandlerContext ctx, GeneratedMessageV3 msg){
-        if(null == ctx || msg == null){
+    public void process(ChannelHandlerContext ctx, GeneratedMessageV3 msg) {
+        if (null == ctx || msg == null) {
             return;
         }
 
@@ -56,6 +57,15 @@ public class MainThreadProcessor {
         } else {
             LOGGER.info("未找到对应的指令器,msgClazz={}", msgClazz.getName());
             return;
+        }
+    }
+
+    /**
+     * 重载函数
+     */
+    public void process(Runnable r) {
+        if (null != r) {
+            _es.submit(r);
         }
     }
 

@@ -1,49 +1,3 @@
-# 分出一个新的线程来负责数据库的读写
-
-## 创建一个接口进行分开两个线程的函数操作
-
-创建接口 IAsyncOperaction类
-
-```java
-package org.async;
-
-/**
- * @author joy
- * @version 1.0
- * @date 2020/5/12 19:45
- * 异步操作接口
- */
-public interface IAsyncOperaction {
-    /**
-     * 获取绑定id
-     *
-     * @return
-     */
-    default int getBindId() {
-        return 0;
-    }
-
-    /**
-     * 获取异步操作
-     */
-    void doAsync();
-
-    /**
-     * 指定完成逻辑
-     */
-    default void doFinish() {
-    }
-}
-
-```
-
-
-
-## 创建异步操作线程
-
-创建AsyncOperationProcessor类
-
-```java
 package org.async;
 
 import org.joy.game.MainThreadProcessor;
@@ -111,15 +65,15 @@ public class AsyncOperationProcessor {
             try{
                 //执行异步操作
                 asynOp.doAsync();
+
                 //回到主线程
-          MainThreadProcessor.getInstance().process(asynOp::doFinish);
+                MainThreadProcessor.getInstance().process(asynOp::doFinish);
             }catch (Exception e){
                 LOGGER.error(e.getMessage(),e);
             }
-        });
-        //结束
-    }
-}
-```
 
-这里写出了核心部分的代码，是用一个线程组根据线程的名字摸出一个结果来以后每次根据名字都是这个对应的线程，这样就不会出现多个线程抢占一个数据的情况。
+        });
+    }
+
+
+}
