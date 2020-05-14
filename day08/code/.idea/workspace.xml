@@ -2,11 +2,106 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ec2e130-052c-4b0c-ab61-0039031e7c36" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/login/db/LoginService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cmdHandler/GetRankCmdHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/joy/game/RankApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/rank/RanItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/rank/RankService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/cmdHandler/UserLoginCmdHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cmdHandler/UserLoginCmdHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/login/db/LoginSerice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/async/AsyncOperationProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/async/IAsyncOperaction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/cmdHandler/CmdHandlerFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/cmdHandler/ICmdHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/cmdHandler/UserMoveToCmdHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/cmdHandler/WhoElseIsHereCmdHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/joy/game/GameMsgDecoder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/joy/game/GameMsgHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/joy/game/MainThreadProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/joy/game/MySqlSessionFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/login/db/UserEntiy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/model/UserManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$MsgCode$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$MsgCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$SelectHeroCmd$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$SelectHeroCmd$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$SelectHeroCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$SelectHeroCmdOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$SelectHeroResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$SelectHeroResult$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$SelectHeroResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$SelectHeroResultOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkCmd$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkCmd$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkCmdOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkResult$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserAttkResultOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserDieResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserDieResult$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserDieResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserDieResultOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryCmd$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryCmd$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryCmdOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryResult$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserEntryResultOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserLoginCmd$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserLoginCmd$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserLoginCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserLoginCmdOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserLoginResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserLoginResult$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserLoginResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserLoginResultOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToCmd$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToCmd$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToCmdOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToResult$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserMoveToResultOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserQuitResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserQuitResult$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserQuitResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserQuitResultOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopCmd$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopCmd$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopCmdOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopResult$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserStopResultOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserSubtractHpResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserSubtractHpResult$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserSubtractHpResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$UserSubtractHpResultOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereCmd$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereCmd$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereCmd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereCmdOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfo$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfo$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfo$MoveState$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfo$MoveState$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfo$MoveState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfo$MoveStateOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult$UserInfoOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol$WhoElseIsHereResultOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/tinygame/herostory/msg/GameMsgProtocol.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -18,11 +113,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/cmdHandler/UserLoginCmdHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1485">
-              <caret line="45" column="28" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
+            <state relative-caret-position="-623">
+              <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -31,18 +126,51 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/login/db/LoginService.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/cmdHandler/GetRankCmdHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="70">
-              <caret line="182" column="17" selection-start-line="182" selection-start-column="17" selection-end-line="182" selection-end-column="17" />
+            <state relative-caret-position="528">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1024#1025#0" expanded="true" />
-                <element signature="e#1056#1057#0" expanded="true" />
-                <element signature="e#3562#3563#0" expanded="true" />
-                <element signature="e#3604#3605#0" expanded="true" />
-                <element signature="e#3656#3657#0" expanded="true" />
-                <element signature="e#3727#3728#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/joy/game/RankApp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/rank/RanItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="334">
+              <caret line="13" column="7" lean-forward="true" selection-end-line="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/rank/RankService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="22" column="9" lean-forward="true" selection-end-line="149" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#559#560#0" expanded="true" />
+                <element signature="e#591#592#0" expanded="true" />
+                <element signature="e#1084#1243#0" expanded="true" />
+                <element signature="e#1242#1243#0" expanded="true" />
+                <element signature="e#1373#1374#0" expanded="true" />
+                <element signature="e#1417#1418#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -64,8 +192,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/async/AsyncOperationProcessor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="60" column="50" lean-forward="true" selection-start-line="60" selection-start-column="50" selection-end-line="60" selection-end-column="50" />
+            <state relative-caret-position="88">
+              <caret line="60" column="50" selection-start-line="60" selection-start-column="50" selection-end-line="60" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1210#1211#0" expanded="true" />
@@ -76,19 +204,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="62" column="21" selection-start-line="62" selection-start-column="21" selection-end-line="62" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/async/IAsyncOperaction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="19" column="13" lean-forward="true" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+            <state relative-caret-position="136">
+              <caret line="21" column="16" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="16" />
               <folding>
                 <element signature="e#210#211#0" expanded="true" />
                 <element signature="e#234#235#0" expanded="true" />
@@ -100,20 +219,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/joy/game/MainThreadProcessor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="55" selection-start-line="55" selection-end-line="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/util/RedisUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-363">
-              <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+            <state relative-caret-position="397">
+              <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -138,6 +245,7 @@
       <find>USER_MOVE_TO_CMD</find>
       <find>insertInto</find>
       <find>getUserEntuty</find>
+      <find>getRankItemList</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -174,10 +282,14 @@
         <option value="$PROJECT_DIR$/src/main/java/org/joy/game/MainThreadProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/util/RedisUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/joy/game/ServerGame.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/login/db/LoginSerice.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/login/db/LoginService.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/cmdHandler/UserLoginCmdHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/rank/RanItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/cmdHandler/GetRankCmdHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/rank/RankService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/joy/game/RankApp.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -278,25 +390,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="herostory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="msg" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="herostory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="rank" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -307,7 +401,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589444424377" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589448379816" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -334,7 +428,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.RankApp">
+    <configuration name="RankApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.joy.game.RankApp" />
+      <module name="herostory" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.joy.game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ServerGame" type="Application" factoryName="Application" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.joy.game.ServerGame" />
       <extension name="coverage">
@@ -349,6 +456,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.RankApp" />
         <item itemvalue="Application.ServerGame" />
       </list>
     </recent_temporary>
@@ -379,12 +487,12 @@
       <workItem from="1589268254099" duration="8576000" />
       <workItem from="1589276920205" duration="3571000" />
       <workItem from="1589283103451" duration="2772000" />
-      <workItem from="1589427867061" duration="9052000" />
+      <workItem from="1589427867061" duration="13629000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72116000" />
+    <option name="totallyTimeSpent" value="76693000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -399,7 +507,7 @@
     <frame x="-8" y="-8" width="1862" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15260822" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15260822" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -408,7 +516,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3271028" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3271028" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997923" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -441,20 +549,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk-12.0.2/lib/src.zip!/java.base/java/util/concurrent/ScheduledExecutorService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2028">
-          <caret line="90" column="17" selection-start-line="90" selection-start-column="17" selection-end-line="90" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.43.Final/netty-all-4.1.43.Final.jar!/io/netty/util/concurrent/EventExecutorGroup.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="13" column="48" lean-forward="true" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.43.Final/netty-all-4.1.43.Final.jar!/io/netty/channel/EventLoopGroup.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -781,13 +875,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="62" column="21" selection-start-line="62" selection-start-column="21" selection-end-line="62" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/login/db/UserEntiy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
@@ -795,39 +882,6 @@
           <folding>
             <element signature="e#931#932#0" expanded="true" />
             <element signature="e#962#963#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/joy/game/MainThreadProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="55" selection-start-line="55" selection-end-line="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/async/IAsyncOperaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="19" column="13" lean-forward="true" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding>
-            <element signature="e#210#211#0" expanded="true" />
-            <element signature="e#234#235#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/async/AsyncOperationProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="60" column="50" lean-forward="true" selection-start-line="60" selection-start-column="50" selection-end-line="60" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1210#1211#0" expanded="true" />
-            <element signature="e#1242#1243#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -848,9 +902,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cmdHandler/UserLoginCmdHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-623">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/async/IAsyncOperaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="21" column="16" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="16" />
+          <folding>
+            <element signature="e#210#211#0" expanded="true" />
+            <element signature="e#234#235#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/login/db/LoginService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
+        <state relative-caret-position="1951">
           <caret line="182" column="17" selection-start-line="182" selection-start-column="17" selection-end-line="182" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -864,13 +939,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/cmdHandler/UserLoginCmdHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cmdHandler/GetRankCmdHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1485">
-          <caret line="45" column="28" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
+        <state relative-caret-position="528">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/joy/game/RankApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/async/AsyncOperationProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="60" column="50" selection-start-line="60" selection-start-column="50" selection-end-line="60" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1210#1211#0" expanded="true" />
+            <element signature="e#1242#1243#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/joy/game/MainThreadProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/rank/RankService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="22" column="9" lean-forward="true" selection-end-line="149" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#559#560#0" expanded="true" />
+            <element signature="e#591#592#0" expanded="true" />
+            <element signature="e#1084#1243#0" expanded="true" />
+            <element signature="e#1242#1243#0" expanded="true" />
+            <element signature="e#1373#1374#0" expanded="true" />
+            <element signature="e#1417#1418#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/rank/RanItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="13" column="7" lean-forward="true" selection-end-line="30" />
         </state>
       </provider>
     </entry>

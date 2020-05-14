@@ -1,135 +1,3 @@
-
-
-# mq排行榜
-
-## 1.redis的基础应用
-
-1.windows的安装
-
-基础请看：https://www.runoob.com/redis/redis-tutorial.html
-
-命令行查看：http://doc.redisfans.com/ 
-
-2.要使用的命令
-
-- hset、hget；
-- hincrby
-- zadd
-- zrange、zrevrange
-
-## 2.增加redis的包
-
-```xml
-<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
-<dependency>
-    <groupId>redis.clients</groupId>
-    <artifactId>jedis</artifactId>
-    <version>3.3.0</version>
-</dependency>
-```
-
-## 3.编写管理redis的类
-
-```java
-package org.util;
-
-/**
- * @author joy
- * @version 1.0
- * @date 2020/5/14 11:50
- */
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-
-/**
- * redis工具类
- */
-public class RedisUtil {
-    /**
-     * 日志
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(RedisUtil.class);
-
-    /**
-     * 连接池对象
-     */
-    private static JedisPool _jedisPool = null;
-
-    /**
-     * 私有化构造函数
-     */
-    private RedisUtil(){
-    }
-
-    /**
-     * 初始化
-     */
-    public static void init(){
-        try {
-            _jedisPool = new JedisPool("127.0.0.1",6379);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(),e);
-        }
-    }
-
-    /**
-     * 获取Ridis 实例
-     */
-    public static Jedis getJedis(){
-        if(null == _jedisPool){
-            throw new RuntimeException("_jedisPool 没有初始化");
-        }
-
-        Jedis jedis = _jedisPool.getResource();//从池子里拿到对象
-        return jedis;
-    }
-}
-
-```
-
-## 4.编写排行榜的服务器信息
-
-1.编写榜行榜服务器的时候先编写排行榜的vo对象
-
-```java
-package org.rank;
-
-/**
- * @author joy
- * @version 1.0
- * @date 2020/5/14 16:27
- * 排行榜的对象
- */
-public class RanItem {
-    /**
-     * 排行榜id
-     */
-    public int rankId;
-    /**
-     * 用户id
-     */
-    public int userId;
-    /**
-     * 用户名称
-     */
-    public String userName;
-    /**
-     * 英雄形象
-     */
-    public String heroAvatar;
-    /**
-     * 输赢次数
-     */
-    public int win;
-}
-```
-
-然后编写排行榜对应的服务模块，这里和以前的登录模块一样，单独的一个io线程进行操作。
-
-```java
 package org.rank;
 
 import com.alibaba.fastjson.JSONObject;
@@ -189,16 +57,15 @@ public class RankService {
         if (null == callback) {
             return;
         }
-        //核心部分限执行这块
+
         IAsyncOperaction asyncOp = new AsyncGetRank() {
             @Override
             public void doFinish() {
                 callback.apply(this.getRankItemList());
             }
         };
-		//在执行主线程
+
         AsyncOperationProcessor.getInstance().process(asyncOp);
-    	//核心结束
     }
 
     /**
@@ -222,7 +89,7 @@ public class RankService {
         @Override
         public void doAsync() {
             try (Jedis redis = RedisUtil.getJedis()) {
-                // 获取字符串集合0-9十条数据
+                // 获取字符串集合
                 Set<Tuple> valSet = redis.zrevrangeWithScores("Rank", 0, 9);
 
                 _rankItemList = new ArrayList<>();
@@ -280,21 +147,3 @@ public class RankService {
         }
     }
 }
-```
-
-然后我们可以用zadd User_1 Rank 1 2 这个命令进行查询我们的排行榜的数据是否已经生成。
-
-## 5.mq的基础使用
-
-1.windows安装
-
-https://www.jianshu.com/p/4a275e779afa
-
-2.启动
-
-cd到bin下运行：start mqnamesrv.cmd
-
-然后在启动broker：start mqbroker.cmd -n 127.0.0.1:9876 autoCreateTopicEnable=true
-
-这两个启动了就不要关闭了（注意：不要用太高的jdk版本，不然不好弄，我用的jdk8的版本）
-
