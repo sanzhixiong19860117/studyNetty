@@ -2,61 +2,81 @@ package org.cmdHandler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.AttributeKey;
-import org.joy.game.Broadcaster;
-import org.login.db.LoginSerice;
-import org.login.db.UserEntiy;
+import org.login.db.LoginService;
 import org.model.User;
 import org.model.UserManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.tinygame.herostory.msg.GameMsgProtocol;
 
 /**
  * @author joy
  * @version 1.0
- * @date 2020/5/12 17:09
- * 登录消息处理
+ * @date 2020/5/14 16:09
  */
 public class UserLoginCmdHandler implements ICmdHandler<GameMsgProtocol.UserLoginCmd> {
-    //日志
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserLoginCmdHandler.class);
+    /**
+     * 日志对象
+     */
+    static private final Logger LOGGER = LoggerFactory.getLogger(UserLoginCmdHandler.class);
 
     @Override
     public void handle(ChannelHandlerContext ctx, GameMsgProtocol.UserLoginCmd cmd) {
-        if (ctx == null || cmd == null) {
-            LOGGER.error("UserLoginCmdHandler ctx={},cnd={}");
+        if (null == ctx ||
+                null == cmd) {
             return;
         }
 
-        //获取数据
         String userName = cmd.getUserName();
-        String passWord = cmd.getPassword();
+        String password = cmd.getPassword();
 
+        LOGGER.info(
+                "用户登陆, userName = {}, password = {}",
+                userName,
+                password
+        );
 
-        LoginSerice.getInster().userLogin(userName, passWord,(userEntity)->{
+        LOGGER.info("当前线程 = {}", Thread.currentThread().getName());
+
+        // 执行用户登陆
+        LoginService.getInstance().userLogin(userName, password, (userEntity) -> {
             if (null == userEntity) {
-                LOGGER.error("登录失败 userName={}", cmd.getUserName());
+                LOGGER.error("用户登陆失败, userName = {}", cmd.getUserName());
                 return null;
             }
 
-            //新建用户
+            LOGGER.info(
+                    "用户登陆成功, userId = {}, userName = {}",
+                    userEntity.userId,
+                    userEntity.userName
+            );
+
+            LOGGER.info("当前线程 = {}", Thread.currentThread().getName());
+
+            // 新建用户,
             User newUser = new User();
-            newUser.userId = userEntity.getUserId();
-            newUser.userName = userEntity.getUserName();
-            newUser.heroAvatar = userEntity.getHeroAvatar();
+            newUser.userId = userEntity.userId;
+            newUser.userName = userEntity.userName;
+            newUser.heroAvatar = userEntity.heroAvatar;
             newUser.currHp = 100;
+            // 并将用户加入管理器
             UserManager.addUser(newUser);
 
-            //放入缓存里面
+            // 将用户 Id 附着到 Channel
             ctx.channel().attr(AttributeKey.valueOf("userId")).set(newUser.userId);
 
-            //登录返回结果构建
-            GameMsgProtocol.UserLoginResult.Builder result = GameMsgProtocol.UserLoginResult.newBuilder();
-            result.setUserId(newUser.userId);
-            result.setUserName(newUser.userName);
-            result.setHeroAvatar(newUser.heroAvatar);
-            GameMsgProtocol.UserLoginResult newResult = result.build();
+            // 登陆结果构建者
+            GameMsgProtocol.UserLoginResult.Builder
+                    resultBuilder = GameMsgProtocol.UserLoginResult.newBuilder();
+            resultBuilder.setUserId(newUser.userId);
+            resultBuilder.setUserName(newUser.userName);
+            resultBuilder.setHeroAvatar(newUser.heroAvatar);
+
+            // 构建结果并发送
+            GameMsgProtocol.UserLoginResult newResult = resultBuilder.build();
             ctx.writeAndFlush(newResult);
+
             return null;
         });
     }
