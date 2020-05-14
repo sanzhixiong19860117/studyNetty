@@ -14,7 +14,7 @@
 
 ## [第七天：游戏多线程读取数据库](https://github.com/sanzhixiong19860117/studyNetty/tree/master/day07)
 
-## 第八天：利用RocketMQ实现简单的排行榜
+## [第八天：利用RocketMQ实现简单的排行榜](https://github.com/sanzhixiong19860117/studyNetty/tree/master/day08)
 
 ## 第九天：游戏服务器的部署
 
