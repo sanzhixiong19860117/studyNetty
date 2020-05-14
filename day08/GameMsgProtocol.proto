@@ -22,6 +22,8 @@ enum MsgCode {
     USER_LOGIN_RESULT = 14;
     SELECT_HERO_CMD = 15;
     SELECT_HERO_RESULT = 16;
+    GET_RANK_CMD = 17;
+    GET_RANK_RESULT = 18;
 };
 
 // 
@@ -211,4 +213,31 @@ message SelectHeroResult {
     // 英雄形象, 
     // 如果是空字符串则说明失败
     string heroAvatar = 1;
+}
+
+//
+// 获取排行榜
+///////////////////////////////////////////////////////////////////////
+// 指令
+message GetRankCmd {
+}
+
+// 结果
+message GetRankResult {
+    // 排名条目
+    repeated RankItem rankItem = 1;
+
+    // 用户信息
+    message RankItem {
+        // 排名 Id
+        uint32 rankId = 1;
+        // 用户 Id
+        uint32 userId = 2;
+        // 用户名称
+        string userName = 3;
+        // 英雄形象
+        string heroAvatar = 4;
+        // 胜利次数
+        uint32 win = 5;
+    }
 }
