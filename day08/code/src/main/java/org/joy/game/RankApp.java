@@ -1,5 +1,6 @@
 package org.joy.game;
 
+import org.mq.MQConsumer;
 import org.util.RedisUtil;
 
 import org.slf4j.Logger;
@@ -24,9 +25,8 @@ public class RankApp {
      */
     static public void main(String[] argvArray) {
         RedisUtil.init();
-//        MQConsumer.init();
+        MQConsumer.init();
 
-        //LOGGER.info("排行榜应用程序启动成功!");
-        System.out.println("排行榜应用程序启动成功!");
+        LOGGER.info("排行榜应用程序启动成功!");
     }
 }

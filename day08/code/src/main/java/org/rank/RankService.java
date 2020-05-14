@@ -97,7 +97,7 @@ public class RankService {
 
                 for (Tuple t : valSet) {
                     // 获取用户 Id
-                    int userId = Integer.parseInt(t.getElement());//t.getElement()相当于用户id
+                    int userId = Integer.parseInt(t.getElement());
 
                     // 获取用户基本信息
                     String jsonStr = redis.hget("User_" + userId, "BasicInfo");
@@ -122,28 +122,28 @@ public class RankService {
                 LOGGER.error(ex.getMessage(), ex);
             }
         }
+    }
 
-        /**
-         * 刷新排行榜
-         *
-         * @param winnerId 赢家 Id
-         * @param loserId  输家 Id
-         */
-        public void refreshRank(int winnerId, int loserId) {
-            try (Jedis redis = RedisUtil.getJedis()) {
-                // 增加用户的胜利和失败次数
-                redis.hincrBy("User_" + winnerId, "Win", 1);
-                redis.hincrBy("User_" + loserId, "Lose", 1);
+    /**
+     * 刷新排行榜
+     *
+     * @param winnerId 赢家 Id
+     * @param loserId  输家 Id
+     */
+    public void refreshRank(int winnerId, int loserId) {
+        try (Jedis redis = RedisUtil.getJedis()) {
+            // 增加用户的胜利和失败次数
+            redis.hincrBy("User_" + winnerId, "Win", 1);
+            redis.hincrBy("User_" + loserId, "Lose", 1);
 
-                // 看看赢家总共赢了多少次?
-                String winStr = redis.hget("User_" + winnerId, "Win");
-                int winInt = Integer.parseInt(winStr);
+            // 看看赢家总共赢了多少次?
+            String winStr = redis.hget("User_" + winnerId, "Win");
+            int winInt = Integer.parseInt(winStr);
 
-                // 修改排名数据
-                redis.zadd("Rank", winInt, String.valueOf(winnerId));
-            } catch (Exception ex) {
-                LOGGER.error(ex.getMessage(), ex);
-            }
+            // 修改排名数据
+            redis.zadd("Rank", winInt, String.valueOf(winnerId));
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
         }
     }
 }
