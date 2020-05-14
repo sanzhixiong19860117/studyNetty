@@ -1,34 +1,3 @@
-# mq排行榜
-
-## 1.redis的基础应用
-
-1.windows的安装
-
-基础请看：https://www.runoob.com/redis/redis-tutorial.html
-
-命令行查看：http://doc.redisfans.com/ 
-
-2.要使用的命令
-
-- hset、hget；
-- hincrby
-- zadd
-- zrange、zrevrange
-
-## 2.增加redis的包
-
-```xml
-<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
-<dependency>
-    <groupId>redis.clients</groupId>
-    <artifactId>jedis</artifactId>
-    <version>3.3.0</version>
-</dependency>
-```
-
-## 3.编写管理redis的类
-
-```java
 package org.util;
 
 /**
@@ -85,6 +54,3 @@ public class RedisUtil {
         return jedis;
     }
 }
-
-```
-
